@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Button,
   Form,
@@ -17,6 +17,18 @@ import Background from "./Images/background.png";
 function Home() {
   const [comicText, setComicText] = useState(Array(10).fill(""));
   const [comicPanels, setComicPanels] = useState(Array(10).fill(null));
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const checkImagesLoaded = () => {
+      const allImagesLoaded = comicPanels.every((panel) => panel !== null);
+      if (allImagesLoaded) {
+        setLoading(false);
+      }
+    };
+
+    checkImagesLoaded();
+  }, [comicPanels]);
 
   const API_URL =
     "https://xdwvg9no7pefghrn.us-east-1.aws.endpoints.huggingface.cloud";
@@ -31,6 +43,8 @@ function Home() {
 
   const generateComic = async () => {
     try {
+      setLoading(true);
+
       const images = await Promise.all(
         comicText.map((text) =>
           queryAPI({
@@ -42,6 +56,7 @@ function Home() {
       setComicPanels(images);
     } catch (error) {
       console.error(error);
+      setLoading(false);
     }
   };
 
@@ -59,12 +74,14 @@ function Home() {
 
       if (!response.ok) {
         throw new Error(`API request failed with status ${response.status}`);
+        alert("Error in rendering!");
       }
 
       const imageBlob = await response.blob();
       return URL.createObjectURL(imageBlob);
     } catch (error) {
       throw error;
+      alert("Error in rendering!");
     }
   };
 
@@ -190,50 +207,54 @@ function Home() {
         </Col>
       </Row>
       <Row>
-        {comicPanels.some((panel) => panel !== null) && (
-          <div style={{ padding: "4%" }}>
-            <br />
-            <br />
-            <h4 style={{ color: "white", fontWeight: "bold" }}>
-              Generated Comics
-            </h4>
-            <p
-              style={{
-                fontSize: "12px",
-                textAlign: "justify",
-                color: "white",
-                textAlign: "center",
-              }}
-            >
-              Sit back, relax and let our comics transport you to a universe of
-              boundless discovery
-            </p>
-            <br />
-            <br />
-            <Slider {...settings}>
-              {comicPanels.map((panel, index) => (
-                <div key={index}>
-                  <img
-                    src={panel}
-                    alt={`Panel ${index + 1}`}
-                    style={{ width: "99%", filter: "grayscale(80%)" }}
-                  />
-                  <p
-                    style={{
-                      textAlign: "center",
-                      padding: "5px",
-                      color: "white",
-                      fontSize: "55%",
-                      backgroundColor:"grey",
-                      width:"99%"
-                    }}
-                  >
-                    {comicText[index]}
-                  </p>
-                </div>
-              ))}
-            </Slider>
-          </div>
+        {loading ? (
+          <div style={{ padding: "3% 0% 1% 0%", color: "white", textAlign:"center" }}>Loading...</div>
+        ) : (
+          comicPanels.some((panel) => panel !== null) && (
+            <div style={{ padding: "4%" }}>
+              <br />
+              <br />
+              <h4 style={{ color: "white", fontWeight: "bold" }}>
+                Generated Comics
+              </h4>
+              <p
+                style={{
+                  fontSize: "12px",
+                  textAlign: "justify",
+                  color: "white",
+                  textAlign: "center",
+                }}
+              >
+                Sit back, relax and let our comics transport you to a universe
+                of boundless discovery
+              </p>
+              <br />
+              <br />
+              <Slider {...settings}>
+                {comicPanels.map((panel, index) => (
+                  <div key={index}>
+                    <img
+                      src={panel}
+                      alt={`Panel ${index + 1}`}
+                      style={{ width: "99%", filter: "grayscale(80%)" }}
+                    />
+                    <p
+                      style={{
+                        textAlign: "center",
+                        padding: "5px",
+                        color: "white",
+                        fontSize: "55%",
+                        backgroundColor: "grey",
+                        width: "99%",
+                      }}
+                    >
+                      {comicText[index]}
+                    </p>
+                  </div>
+                ))}
+              </Slider>
+            </div>
+          )
         )}
       </Row>
       <br />
