@@ -1,15 +1,17 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import {
   Button,
   Form,
   FormGroup,
-  Label,
   Input,
   Row,
   Col,
   Navbar,
   NavbarBrand,
 } from "reactstrap";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import Background from "./Images/background.png";
 
 function Home() {
@@ -66,8 +68,16 @@ function Home() {
     }
   };
 
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+  };
+
   return (
-    <div>
+    <div style={{ fontFamily: "verdana" }}>
       <Navbar className="my-2" dark style={{ margin: "0" }}>
         <NavbarBrand href="/">
           <img
@@ -87,17 +97,21 @@ function Home() {
             The World's Best Comics Have a New Home
           </h1>
           <br />
-          <p style={{ color: "white", textAlign: "left" }}>
+          <p style={{ color: "white", textAlign: "left", fontSize: "12px" }}>
             No more waiting for weeks, daily new episodes
           </p>
         </Col>
         <Col md={6}>
-          <img src="dashtoon_i1.png" style={{ width: "75%" }} />
+          <img
+            src="dashtoon_i1.png"
+            style={{ width: "75%" }}
+            alt="Comic Image"
+          />
         </Col>
       </Row>
       <Row
         style={{
-          marginTop: "12%",
+          marginTop: "9%",
           backgroundColor: "white",
           alignItems: "center",
         }}
@@ -106,9 +120,9 @@ function Home() {
           <center>
             <br />
             <h3 style={{ margin: "3% 0%" }}>Text to Comics</h3>
-            <p style={{ textAlign: "justify", fontSize: "15px" }}>
+            <p style={{ textAlign: "justify", fontSize: "12px" }}>
               You're just a click away from creating the next big sensation like
-              Naruto, One Piece or Pokemon. Simply input the details and click
+              Naruto, One Piece, or Pokemon. Simply input the details and click
               to generate a ten-panel comic strip!
             </p>
           </center>
@@ -125,7 +139,7 @@ function Home() {
                       value={text}
                       onChange={(e) => handleTextChange(index, e.target.value)}
                       style={{
-                        borderRadius: "10px",
+                        borderRadius: "7px",
                         height: "45px",
                         fontSize: "13px",
                       }}
@@ -139,7 +153,12 @@ function Home() {
               color="dark"
               outline
               onClick={generateComic}
-              style={{ borderRadius: "20px", width: "50%" }}
+              style={{
+                borderRadius: "20px",
+                width: "50%",
+                fontSize: "12px",
+                marginBottom: "8px",
+              }}
             >
               Generate Comics
             </Button>
@@ -170,24 +189,63 @@ function Home() {
           />
         </Col>
       </Row>
-      <Row style={{ marginTop: "12%" }}></Row>
-      {/*
-      {comicPanels.some((panel) => panel !== null) && (
-        <div>
-          <h2>Generated Comic</h2>
-          <Row>
-            {comicPanels.map((panel, index) => (
-              <Col key={index} md={6}>
-                <img
-                  src={panel}
-                  alt={`Panel ${index + 1}`}
-                  style={{ width: "100%" }}
-                />
-              </Col>
-            ))}
-          </Row>
-        </div>
-      )} */}
+      <Row style={{ padding: "4%" }}>
+        {comicPanels.some((panel) => panel !== null) && (
+          <div>
+            <br />
+            <br />
+            <h4 style={{ color: "white", fontWeight: "bold" }}>
+              Generated Comics
+            </h4>
+            <p
+              style={{
+                fontSize: "12px",
+                textAlign: "justify",
+                color: "white",
+                textAlign: "center",
+              }}
+            >
+              Sit back, relax and let our comics transport you to a universe of
+              boundless discovery
+            </p>
+            <br />
+            <br />
+            <Slider {...settings}>
+              {comicPanels.map((panel, index) => (
+                <div key={index}>
+                  <img
+                    src={panel}
+                    alt={`Panel ${index + 1}`}
+                    style={{ width: "100%", filter: "grayscale(50%)" }}
+                  />
+                </div>
+              ))}
+            </Slider>
+          </div>
+        )}
+      </Row>
+      <br />
+      <br />
+      <br />
+      <center>
+        <h4 style={{ color: "white" }}>
+          'In comic strips, the person on the left always speaks first'
+        </h4>
+        <p style={{ fontStyle: "italic", color: "lightgray" }}>George Carlin</p>
+      </center>
+      <br />
+      <br />
+      <br />
+      <Row
+        style={{
+          padding: "1%",
+          fontSize: "12px",
+          backgroundColor: "white",
+          borderTop: "0.3px solid white",
+        }}
+      >
+        <center>© 2023 Soumya Tarafder. All right reserved</center>
+      </Row>
     </div>
   );
 }
