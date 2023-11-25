@@ -101,7 +101,7 @@ function Home() {
           alignItems: "center",
         }}
       >
-        <Col md={8} style={{ padding: "5%" }}>
+        <Col md={8} style={{ padding: "2% 5%" }}>
           <Form>
             <Row>
               {comicText.map((text, index) => (
@@ -113,13 +113,24 @@ function Home() {
                       id={`comicText${index}`}
                       value={text}
                       onChange={(e) => handleTextChange(index, e.target.value)}
+                      style={{
+                        borderRadius: "10px",
+                        height: "45px",
+                        fontSize: "13px",
+                      }}
                     />
                   </FormGroup>
                 </Col>
               ))}
             </Row>
-            <Button color="primary" onClick={generateComic}>
-              Generate Comic
+            <br />
+            <Button
+              color="primary"
+              outline
+              onClick={generateComic}
+              style={{ borderRadius: "20px", width: "50%" }}
+            >
+              Generate Comics
             </Button>
           </Form>
         </Col>
@@ -127,28 +138,10 @@ function Home() {
           <img src="dashtoon_i3.png" style={{ width: "100%" }} />
         </Col>
       </Row>
-      {/* <Form>
-        <Row>
-          {comicText.map((text, index) => (
-            <Col key={index} md={6}>
-              <FormGroup>
-                <Label for={`comicText${index}`}>{`Panel ${index + 1}`}</Label>
-                <Input
-                  type="textarea"
-                  name={`comicText${index}`}
-                  id={`comicText${index}`}
-                  value={text}
-                  onChange={(e) => handleTextChange(index, e.target.value)}
-                />
-              </FormGroup>
-            </Col>
-          ))}
-        </Row>
-        <Button color="primary" onClick={generateComic}>
-          Generate Comic
-        </Button>
-      </Form>
+      <Row style={{marginTop:"12%"}}>
 
+      </Row>
+      {/*
       {comicPanels.some((panel) => panel !== null) && (
         <div>
           <h2>Generated Comic</h2>
