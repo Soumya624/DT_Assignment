@@ -189,9 +189,9 @@ function Home() {
           />
         </Col>
       </Row>
-      <Row style={{ padding: "4%" }}>
+      <Row>
         {comicPanels.some((panel) => panel !== null) && (
-          <div>
+          <div style={{ padding: "4%" }}>
             <br />
             <br />
             <h4 style={{ color: "white", fontWeight: "bold" }}>
@@ -216,8 +216,20 @@ function Home() {
                   <img
                     src={panel}
                     alt={`Panel ${index + 1}`}
-                    style={{ width: "100%", filter: "grayscale(50%)" }}
+                    style={{ width: "99%", filter: "grayscale(80%)" }}
                   />
+                  <p
+                    style={{
+                      textAlign: "center",
+                      padding: "5px",
+                      color: "white",
+                      fontSize: "55%",
+                      backgroundColor:"grey",
+                      width:"99%"
+                    }}
+                  >
+                    {comicText[index]}
+                  </p>
                 </div>
               ))}
             </Slider>
