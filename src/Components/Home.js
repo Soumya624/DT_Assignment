@@ -10,6 +10,7 @@ import {
   Navbar,
   NavbarBrand,
 } from "reactstrap";
+import Background from "./Images/background.png";
 
 function Home() {
   const [comicText, setComicText] = useState(Array(10).fill(""));
@@ -101,7 +102,17 @@ function Home() {
           alignItems: "center",
         }}
       >
-        <Col md={8} style={{ padding: "2% 5%" }}>
+        <Col md={7} style={{ padding: "0% 6% 1% 6%" }}>
+          <center>
+            <br />
+            <h3 style={{ margin: "3% 0%" }}>Text to Comics</h3>
+            <p style={{ textAlign: "justify", fontSize: "15px" }}>
+              You're just a click away from creating the next big sensation like
+              Naruto, One Piece or Pokemon. Simply input the details and click
+              to generate a ten-panel comic strip!
+            </p>
+          </center>
+          <br />
           <Form>
             <Row>
               {comicText.map((text, index) => (
@@ -125,7 +136,7 @@ function Home() {
             </Row>
             <br />
             <Button
-              color="primary"
+              color="dark"
               outline
               onClick={generateComic}
               style={{ borderRadius: "20px", width: "50%" }}
@@ -134,13 +145,32 @@ function Home() {
             </Button>
           </Form>
         </Col>
-        <Col md={4}>
-          <img src="dashtoon_i3.png" style={{ width: "100%" }} />
+        <Col
+          md={5}
+          style={{
+            position: "relative",
+            overflow: "hidden",
+            height: "100%",
+            margin: "0",
+            padding: "0",
+          }}
+        >
+          <img
+            src={Background}
+            alt="Background"
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              filter: "grayscale(80%)",
+              margin: "0",
+              padding: "0",
+              display: "block",
+            }}
+          />
         </Col>
       </Row>
-      <Row style={{marginTop:"12%"}}>
-
-      </Row>
+      <Row style={{ marginTop: "12%" }}></Row>
       {/*
       {comicPanels.some((panel) => panel !== null) && (
         <div>
