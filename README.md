@@ -1,6 +1,6 @@
 # DT_Assignment
 
-To get started with the application, do git clone `https://github.com/Username/DT_Assignment.git`. Then do `npm install` and `npm start` after navigating to the project directory. An overview of the application is provided below.
+To get started with the application, do git clone `https://github.com/Soumya624/DT_Assignment.git`. Then do `npm install` and `npm start` after navigating to the project directory. An overview of the application is provided below.
 
 - **State Management**
   The application utilizes the `useState` hook to manage crucial state variables. These include `comicText` for user input, `comicPanels` for storing generated comic panels, and `loading` to track the loading state.
